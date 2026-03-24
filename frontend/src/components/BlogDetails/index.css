@@ -1,0 +1,12 @@
+.blog-details {
+  padding: 20px;
+  text-align: center;
+}
+
+.blog-details h1 {
+  color: #2c3e50;
+}
+
+.blog-details p {
+  color: #555;
+}
