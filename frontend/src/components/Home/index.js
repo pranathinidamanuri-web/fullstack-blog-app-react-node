@@ -7,17 +7,28 @@ const Home = () => {
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const getData = async () => {
-      const response = await fetch('http://localhost:5000/blogs')
-      const data = await response.json()
+  const [error, setError] = useState(null)
 
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/blogs')
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch')
+      }
+
+      const data = await response.json()
       setBlogsList(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
       setLoading(false)
     }
+  }
 
-    getData()
-  }, [])
+  getData()
+}, [])
 
  const filteredBlogs = blogsList.filter(each =>
   each.title.toLowerCase().includes(search.toLowerCase()) ||
